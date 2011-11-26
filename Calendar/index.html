@@ -1,0 +1,115 @@
+<html>
+<head>
+<title>index</title>
+    <script type="text/javascript" src="script/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="script/jquery-ui-1.8.16.custom.min.js" ></script>
+</head>
+<style type="text/css">
+body {
+
+}
+table {
+    margin: 5px;
+	position: relative;
+	font-size: 0.8em;
+	text-align: center;
+}
+td{
+	border:solid 1px #d1d3d2;
+}
+td, a{
+    font-family: "Arial Narrow";
+	height:20px;
+	width: 20px;
+}
+.day-title{
+	
+}
+.weekend, .workday {
+	cursor: pointer;
+}
+.weekend a:hover, .workday a:hover {
+	background: url('buttons.png') -193px -605px;
+	color: #FFFFFF;
+}
+.workday{
+	color: #0000ff;
+}
+.weekend{
+	color: #f5332e;
+}
+#forward{
+	cursor: pointer;
+	background: url('buttons.png') -2px -30px;
+}
+#forward a:hover{
+	background: url('buttons.png') 0px -30px;
+}
+#next{
+	background: url('buttons.png') -39px -30px;
+	cursor: pointer;
+}
+</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+	  // Get current date details
+	  var current_time = new Date();	
+	  current_year = current_time.getFullYear();
+	  current_day = current_time.getDay();
+	  current_month = current_time.getMonth();
+	  
+	  // Set calendar head
+	  $('#year-month').html(current_year + ' - ' + current_month);
+	  
+	  // Get the first/last day info in current month 
+	  var days_in_month = [31,28,31,30,31,30,31,31,30,31,30,31];
+	  first_day_in_month = current_time;
+	  current_time.setDate(1);
+	  var dayNum = first_day_in_month.getDay();
+	  last_day_in_month = current_time;
+	  last_day_in_month.setDate(days_in_month[current_month]);
+	  
+	  // Set calendar body
+	  var iDate = 1;	  
+	  var weekNum = 1;
+	  while(iDate < days_in_month[current_month] + 1){
+	  	$('#day-row-'+ weekNum + ' #day-'+dayNum).html(iDate);
+		if ((dayNum + 1) % 7 == 0){
+			weekNum = weekNum + 1;
+			$('table:last').append(
+			 "<tr id='day-row-" + weekNum + "'>		<td class = 'weekend'><a title = '日' id='day-0'></a></td>		<td class = 'workday'><a title = '一' id='day-1'></a></td>		<td class = 'workday'><a title = '二' id='day-2'></a></td>		<td class = 'workday'><a title = '三' id='day-3'></a></td>		<td class = 'workday'><a title = '四' id='day-4'></a></td>		<td class = 'workday'><a title = '五' id='day-5'></a></td>		<td class = 'weekend'><a title = '六' id='day-6'></a></td>	</tr>"
+			);
+		}
+		dayNum = (dayNum + 1) % 7;
+		iDate = iDate + 1;
+	  }
+	 });
+</script>
+<body>
+<table>
+	<tr id='year-month-title'>
+		<td id='forward'><a id='month-forward'></a></td>
+		<td colspan='5' id='year-month'></td>
+		<td id='next'><a id='month-next'></a></td>
+	</tr>
+	<tr id='day-row-title'>
+		<td class = 'day-title weekend'><a title = '日'>日</a></td>
+		<td class = 'day-title workday'><a title = '一'>一</a></td>
+		<td class = 'day-title workday'><a title = '二'>二</a></td>
+		<td class = 'day-title workday'><a title = '三'>三</a></td>
+		<td class = 'day-title workday'><a title = '四'>四</a></td>
+		<td class = 'day-title workday'><a title = '五'>五</a></td>
+		<td class = 'day-title weekend'><a title = '六'>六</a></td>
+	</tr>
+	<tr id='day-row-1'>
+		<td class = 'weekend'><a title = '日' id='day-0'></a></td>
+		<td class = 'workday'><a title = '一' id='day-1'></a></td>
+		<td class = 'workday'><a title = '二' id='day-2'></a></td>
+		<td class = 'workday'><a title = '三' id='day-3'></a></td>
+		<td class = 'workday'><a title = '四' id='day-4'></a></td>
+		<td class = 'workday'><a title = '五' id='day-5'></a></td>
+		<td class = 'weekend'><a title = '六' id='day-6'></a></td>
+	</tr>
+</table>
+</body>
+</html>
